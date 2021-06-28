@@ -1,0 +1,87 @@
+base.html
+한글로 변경 : <html lang="ko">
+
+```
+<!DOCTYPE html> 
+<html lang="ko"> 
+{%  include 'head.html'%} 
+<body> 
+    <div style="height: 10rem; background-color: #38df81; border-radius: 1rem; margin: 2rem;"> 
+    </div> 
+    <div style="height: 20rem; background-color: #38df81; border-radius: 1rem; margin: 2rem;"> 
+    </div> 
+    <div style="height: 10rem; background-color: #38df81; border-radius: 1rem; margin: 2rem;"> 
+    </div> 
+</body> 
+</html>
+```
+head.html  생성 및base.html에  include :  {%  include 'head.html'%}
+
+```
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+```
+
+header.html과 footer.html 을 새로이 만들어서 변경해줌..(base.html)
+```
+<!DOCTYPE html> 
+<html lang="ko"> 
+{%  include 'head.html'%} 
+<body> 
+    {%  include 'header.html'%} 
+    <div style="height: 20rem; background-color: #38df81; border-radius: 1rem; margin: 2rem;"> 
+    </div> 
+    {%  include 'footer.html'%} 
+</body> 
+</html>
+```
+
+extend 할 부분 만들기 base.html
+```
+<!DOCTYPE html>
+<html lang="ko">
+
+{%  include 'head.html'%}
+
+
+<body>
+
+    {%  include 'header.html'%}
+
+    {% block content %}
+    {%  endblock %}
+
+    {%  include 'footer.html'%}
+
+</body>
+</html>
+```
+
+accountapp 폴더에 하위 templates 폴더에 accountapp  만듬 > 거기에 hello_world.html 파일 생성
+
+```
+{% exthends 'base.html' %}
+
+{%  block contend %}
+
+    <div style="height: 20rem; background-color: #38df81; border-radius: 1rem; margin: 2rem;">
+        <h1>
+             testing
+        </h1>    
+    
+    </div>
+{% endblock%}
+
+```
+
+veiw.py 에서 base.html이 아닌 accountapp/hello_world_html 로 변경해줌
+```
+from django.http import HttpResponse
+from django.shortcuts import render
+
+# Create your views here.
+def hello_world(request):
+    return render(request, 'accountapp/hello_world.html')
+```
